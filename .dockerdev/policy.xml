@@ -1,0 +1,23 @@
+<policymap>
+  <!-- <policy domain="resource" name="temporary-path" value="/tmp"/> -->
+  <policy domain="resource" name="memory" value="1024MiB"/>
+  <policy domain="resource" name="map" value="2048MiB"/>
+  <policy domain="resource" name="width" value="128KP"/>
+  <policy domain="resource" name="height" value="128KP"/>
+  <policy domain="resource" name="area" value="512MB"/>
+  <policy domain="resource" name="disk" value="4GiB"/>
+  <!-- <policy domain="resource" name="file" value="768"/> -->
+  <!-- <policy domain="resource" name="thread" value="4"/> -->
+  <!-- <policy domain="resource" name="throttle" value="0"/> -->
+  <!-- <policy domain="resource" name="time" value="3600"/> -->
+  <!-- <policy domain="system" name="precision" value="6"/> -->
+  <!-- not needed due to the need to use explicitly by mvg: -->
+  <!-- <policy domain="delegate" rights="none" pattern="MVG" /> -->
+  <!-- use curl -->
+  <policy domain="delegate" rights="none" pattern="URL" />
+  <policy domain="delegate" rights="none" pattern="HTTPS" />
+  <policy domain="delegate" rights="none" pattern="HTTP" />
+  <!-- in order to avoid to get image with password text -->
+  <policy domain="path" rights="none" pattern="@*"/>
+  <policy domain="cache" name="shared-secret" value="passphrase" stealth="true"/>
+</policymap>

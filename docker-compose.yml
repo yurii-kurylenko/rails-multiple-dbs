@@ -1,0 +1,56 @@
+version: "3.4"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: .dockerdev/Dockerfile
+      args:
+        RUBY_VERSION: "3.0.0-preview2"
+        PG_MAJOR: "11"
+    tmpfs:
+      - /app/tmp
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app
+      - rails_cache:/app/tmp/cache
+      - bundle:/bundle
+      - .dockerdev/.bashrc:/root/.bashrc:ro
+      - .dockerdev/.pryrc:/app/.pryrc:ro
+    # environment:
+    depends_on:
+      - novagrafdb
+      - plianodb
+      - primarydb
+    ports:
+      - "3000:3000"
+    command: bundle exec rails server -b 0.0.0.0
+
+  primarydb:
+    image: postgres:11
+    volumes:
+      - primarydb:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+  plianodb:
+    image: postgres:11
+    volumes:
+      - plianodb:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+  novagrafdb:
+    image: postgres:11
+    volumes:
+      - novagrafdb:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+volumes:
+  primarydb:
+  plianodb:
+  novagrafdb:
+  bundle:
+  rails_cache:

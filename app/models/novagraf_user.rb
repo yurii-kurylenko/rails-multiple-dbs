@@ -1,0 +1,2 @@
+class NovagrafUser < User
+end

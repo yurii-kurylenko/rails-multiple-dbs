@@ -1,0 +1,3 @@
+class PlianoUser < User
+
+end
